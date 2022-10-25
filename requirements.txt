@@ -1,0 +1,8 @@
+kaggle
+google-colab
+pandas
+zipfile
+numpy
+opencv-python
+sklearn
+matplotlib

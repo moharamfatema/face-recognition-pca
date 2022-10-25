@@ -14,7 +14,7 @@ subjects.
 
 ## Dataset
 
-[Database of faces | Kaggle](https://www.kaggle.com/kasikrit/att-database-of-faces)
+[![kaggle-badge]][ds]
 
 The dataset has 10 images per 40 subjects. Every image is a grayscale
 image of size 92x112.
@@ -31,13 +31,13 @@ mkdir drive/MyDrive/faces/images
 unzip drive/MyDrive/faces/att-database-of-faces.zip -d drive/MyDrive/faces/images
 ```
 
-2. The images are flattened, and split 50% for training and testing.
+1. The images are flattened, and split 50% for training and testing.
 
    The data is also split 70% training - 30% testing later.
 
 ## PCA
 
-<a href="https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_pca.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+[![colab-badge]][colab-pca]
 
 ### PCA Steps
 
@@ -109,37 +109,37 @@ def get_pca(
   return (P, mean)
 ```
 
-2. Projection matrices are saved for each alpha.
+1. Projection matrices are saved for each alpha.
 
-3. Trainig data and test data are projected to r dimensions according to different alpha values.
+1. Trainig data and test data are projected to r dimensions according to different alpha values.
 
-4. `sklearn`'s KNN classifier is used to classify test data.
+1. `sklearn`'s KNN classifier is used to classify test data.
 
-5. Accuracy is calculated for each alpha value.
+1. Accuracy is calculated for each alpha value.
 
-![Accuracy plot](img/pca-n%3D1.png)
+![Accuracy plot][acc-plot]
 
 ### Classifier tuning
 
-6. The 2 previous steps are repeated for different values of n = `[1,3,5,7]`.
+1. The 2 previous steps are repeated for different values of n = `[1,3,5,7]`.
 
-![Accuracy plot for all n values](img/pca-all.png)
+![Accuracy plot for all n values][acc-n]
 
-7. To compare classifier n values, maximum accuracy is calculated for each `n`.
+1. To compare classifier n values, maximum accuracy is calculated for each `n`.
 
-![Maximum accuracy plot](img/pca-max.png)
+![Maximum accuracy plot][max-acc]
 
 ### 70-30 split
 
-8. [1 - 7] are repeated for 70-30 split.
+1. [1 - 7] are repeated for 70-30 split.
 
-<a href="https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_bonus_pca.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+[![colab-badge]][colab-bonus-pca]
 
-![Accuracy plot for 70-30 split](img/pca-b-n=1.png)
+![Accuracy plot for 70-30 split][acc-plot-70]
 
 ![Accuracy plot for all n values for 70-30 split](img/pca-b-all.png)
 
-![Maximum accuracy plot for 70-30 split](img/pca-b-max.png)
+![Maximum accuracy plot for 70-30 split][max-acc-70]
 
 ### Notes
 
@@ -152,8 +152,20 @@ n = 7 | 0.75  | 0.84
 
 Accuracy improves for 70-30 split for all n values.
 
-<style>
-  img{
-    background-color: #fff;
-  }
-</style>
+---
+
+[acc-plot]: img/pca-n%3D1.png
+[acc-n]: img/pca-all.png
+[max-acc]: img/pca-max.png
+[acc-plot-70]: img/pca-b-n=1.png
+[max-acc-70]: img/pca-b-max.png
+
+[ds]: https://www.kaggle.com/kasikrit/att-database-of-faces
+
+[colab-badge]: https://colab.research.google.com/assets/colab-badge.svg
+
+[colab-pca]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_pca.ipynb
+
+[colab-bonus-pca]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_bonus_pca.ipynb
+
+[kaggle-badge]: https://kaggle.com/static/images/open-in-kaggle.svg

@@ -152,6 +152,199 @@ n = 7 | 0.75  | 0.84
 
 Accuracy improves for 70-30 split for all n values.
 
+## LDA
+
+[![colab-badge]][colab-lda]
+
+### LDA Steps
+
+1. Projection matrix is calculated for the training data using the following algorithm:
+
+```python
+def LDA():
+  numberOfClasses = 40
+  numberInEachClass = 5
+  index = 0
+  Zindex = 0
+  sumOfEach = np.zeros((40,10304))
+  totalSum = np.zeros((1,10304))
+  meanOfEach = np.zeros((40,10304))
+  totalMean = np.zeros((1,10304))
+  Z = np.zeros((200,10304))
+  Sb = np.zeros((10304,10304))
+  S = np.zeros((10304,10304))
+  U = np.zeros((39,10304))
+  w = np.zeros((1,39))
+
+  for i in range(1,numberOfClasses+1):
+    # gets the indexes of the label with id=i
+    place = np.where(label_train[:] == i)
+    #print(place[0])
+    # sums the 5 pics values in the same id
+    for j in range(numberInEachClass):
+      #print(data_train[place[0][j],:])
+      sumOfEach[index][:] = sumOfEach[index][:] + data_train[place[0][j],:]
+      #print("sum here " + str(sumOfEach))
+    # getting the mean of each class
+    meanOfEach[index][:] = sumOfEach[index][:] / numberInEachClass
+    #print("mean here "+ str(meanOfEach[index][:]))
+
+    # getting the centre class matrices Z
+    for k in range(numberInEachClass):
+      Z[place[0][k],:] = data_train[place[0][k],:] - meanOfEach[index][:]
+    #print("printing Z " + str(Z))
+    index += 1
+
+  totalSum = np.sum(sumOfEach, axis=0)
+  #print(totalSum.shape)
+  # getting the overall sample mean
+  totalMean = totalSum / numberOfClasses
+  #print(totalMean)
+
+  # getting the between class scatter matrix
+  for i in range(numberOfClasses):
+    difference = meanOfEach[i] - totalMean
+    Sb += (numberInEachClass * np.dot(difference, np.transpose(difference)))
+
+  # getting the within class scatter matrices S
+  #for i in range(numberOfClasses):
+  S = np.dot(np.transpose(Z),Z)
+
+  w, U = np.linalg.eigh(np.dot(np.linalg.inv(S),Sb))
+  sorted_vectors=U[w.argsort()]
+  sorted_vectors = np.real(sorted_vectors)
+  U=sorted_vectors[-39:]
+  print(U.shape)
+  return U
+```
+
+1. Trainig data and test data are projected to calculated `U`.
+
+1. `sklearn`'s KNN classifier is used to classify test data.
+
+1. The following classification report is calculated:
+
+accuracy for knn: `0.805`
+
+subject|precision|    recall  |f1-score|   support
+--- | --- | --- | --- |---
+1.0|       1.00|      0.20|      0.33|         5
+2.0|       1.00|      1.00|      1.00|         5
+3.0|       0.67|      0.80|      0.73|         5
+4.0|       0.75|      0.60|      0.67|         5
+5.0|       0.62|      1.00|      0.77|         5
+6.0|       1.00|      1.00|      1.00|         5
+7.0|       1.00|      1.00|      1.00|         5
+8.0|       0.83|      1.00|      0.91|         5
+9.0|       1.00|      0.40|      0.57|         5
+10.0|       1.00|      0.80|      0.89|         5
+11.0|       1.00|      1.00|      1.00|         5
+12.0|       0.80|      0.80|      0.80|         5
+13.0|       0.71|      1.00|      0.83|         5
+14.0|       1.00|      1.00|      1.00|         5
+15.0|       0.83|      1.00|      0.91|         5
+16.0|       0.57|      0.80|      0.67|         5
+17.0|       0.62|      1.00|      0.77|         5
+18.0|       0.83|      1.00|      0.91|         5
+19.0|       0.83|      1.00|      0.91|         5
+20.0|       1.00|      0.80|      0.89|         5
+21.0|       1.00|      1.00|      1.00|         5
+22.0|       1.00|      0.80|      0.89|         5
+23.0|       0.80|      0.80|      0.80|         5
+24.0|       1.00|      0.80|      0.89|         5
+25.0|       1.00|      1.00|      1.00|         5
+26.0|       1.00|      0.60|      0.75|         5
+27.0|       1.00|      1.00|      1.00|         5
+28.0|       1.00|      0.80|      0.89|         5
+29.0|       1.00|      1.00|      1.00|         5
+30.0|       0.83|      1.00|      0.91|         5
+31.0|       0.83|      1.00|      0.91|         5
+32.0|       1.00|      1.00|      1.00|         5
+33.0|       1.00|      1.00|      1.00|         5
+34.0|       0.83|      1.00|      0.91|         5
+35.0|       1.00|      0.80|      0.89|         5
+36.0|       1.00|      0.40|      0.57|         5
+37.0|       1.00|      1.00|      1.00|         5
+38.0|       0.71|      1.00|      0.83|         5
+39.0|       1.00|      1.00|      1.00|         5
+40.0|       0.75|      0.60|      0.67|         5
+accuracy    |    -       |     -      |0.87       |200
+macro avg   |        0.90|  0.87      |0.86       |200
+weighted avg|        0.90|  0.87      |0.86       |200
+
+### LDA classifier tuning
+
+1. Classification is repeated for different values of n = `[1,3,5,7]`.
+
+![Accuracy plot for all n values][acc-n-lda]
+
+### LDA 70-30 split
+
+1. Steps are repeated for 70-30 split.
+
+[![colab-badge]][colab-bonus-lda]
+
+accuracy for knn:`0.8321428571428571`
+
+subject| precision|    recall|  f1-score|   support
+--- | --- | --- | --- | ---
+1.0|       1.00|      1.00|      1.00|         3
+2.0|       0.75|      1.00|      0.86|         3
+3.0|       0.75|      1.00|      0.86|         3
+4.0|       1.00|      0.67|      0.80|         3
+5.0|       0.75|      1.00|      0.86|         3
+6.0|       1.00|      1.00|      1.00|         3
+7.0|       1.00|      1.00|      1.00|         3
+8.0|       1.00|      1.00|      1.00|         3
+9.0|       0.75|      1.00|      0.86|         3
+10.0|       1.00|      0.67|      0.80|         3
+11.0|       1.00|      0.33|      0.50|         3
+12.0|       1.00|      1.00|      1.00|         3
+13.0|       1.00|      1.00|      1.00|         3
+14.0|       1.00|      0.67|      0.80|         3
+15.0|       0.75|      1.00|      0.86|         3
+16.0|       1.00|      1.00|      1.00|         3
+17.0|       1.00|      1.00|      1.00|         3
+18.0|       1.00|      0.67|      0.80|         3
+19.0|       1.00|      0.67|      0.80|         3
+20.0|       0.60|      1.00|      0.75|         3
+21.0|       1.00|      1.00|      1.00|         3
+22.0|       0.60|      1.00|      0.75|         3
+23.0|       1.00|      1.00|      1.00|         3
+24.0|       1.00|      1.00|      1.00|         3
+25.0|       1.00|      1.00|      1.00|         3
+26.0|       1.00|      1.00|      1.00|         3
+27.0|       1.00|      1.00|      1.00|         3
+28.0|       0.33|      0.33|      0.33|         3
+29.0|       1.00|      0.67|      0.80|         3
+30.0|       0.75|      1.00|      0.86|         3
+31.0|       1.00|      1.00|      1.00|         3
+32.0|       1.00|      1.00|      1.00|         3
+33.0|       1.00|      1.00|      1.00|         3
+34.0|       1.00|      1.00|      1.00|         3
+35.0|       1.00|      0.67|      0.80|         3
+36.0|       1.00|      1.00|      1.00|         3
+37.0|       0.60|      1.00|      0.75|         3
+38.0|       1.00|      0.67|      0.80|         3
+39.0|       1.00|      0.33|      0.50|         3
+40.0|       0.67|      0.67|      0.67|         3
+accuracy |             ||             0.88 |      120
+macro avg|       0.91|      0.88|      0.87|       120
+weighted avg|       0.91|      0.88|      0.87|       120
+
+![Accuracy plot for all n values for 70-30 split](img/lda-b.png)
+
+### Notes on LDA
+
+Accuracy| 50-50 split | 70-30 split
+---   | ---   | ---
+n = 1 | 0.87  | 0.88
+n = 3 | 0.70  | 0.73
+n = 5 | 0.65  | **0.70**
+n = 7 | 0.60  | 0.63
+
+Accuracy improves *slightly* for 70-30 split for some n values.
+
 ---
 
 [acc-plot]: img/pca-n%3D1.png
@@ -159,12 +352,17 @@ Accuracy improves for 70-30 split for all n values.
 [max-acc]: img/pca-max.png
 [acc-plot-70]: img/pca-b-n=1.png
 [max-acc-70]: img/pca-b-max.png
+[acc-n-lda]: img/lda.png
 
 [ds]: https://www.kaggle.com/kasikrit/att-database-of-faces
 
 [colab-badge]: https://colab.research.google.com/assets/colab-badge.svg
 
 [colab-pca]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_pca.ipynb
+
+[colab-lda]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_lda.ipynb
+
+[colab-bonus-lda]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_bonus_lda.ipynb
 
 [colab-bonus-pca]: https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_bonus_pca.ipynb
 

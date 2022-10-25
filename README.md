@@ -9,8 +9,8 @@ subjects.
 | Name           | ID   |
 | -------------- | ---- |
 | Fatema Moharam | 6655 |
-| Aya Naga       | xxxx |
-| Mariam Bardesy | xxxx |
+| Aya Naga       | 6376 |
+| Mariam Bardesy | 6200 |
 
 ## Dataset
 

@@ -37,7 +37,7 @@ unzip drive/MyDrive/faces/att-database-of-faces.zip -d drive/MyDrive/faces/image
 
 ## PCA
 
-<a href="https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_pca.ipynb\" target="_parent\"><img src="https://colab.research.google.com/assets/colab-badge.svg\" alt="Open In Colab\"/></a>
+<a href="https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_pca.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ### PCA Steps
 
@@ -128,3 +128,32 @@ def get_pca(
 7. To compare classifier n values, maximum accuracy is calculated for each `n`.
 
 ![Maximum accuracy plot](img/pca-max.png)
+
+### 70-30 split
+
+8. [1 - 7] are repeated for 70-30 split.
+
+<a href="https://colab.research.google.com/github/moharamfatema/face-recognition-pca/blob/main/faces_bonus_pca.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+
+![Accuracy plot for 70-30 split](img/pca-b-n=1.png)
+
+![Accuracy plot for all n values for 70-30 split](img/pca-b-all.png)
+
+![Maximum accuracy plot for 70-30 split](img/pca-b-max.png)
+
+### Notes
+
+Maximum Accuracy| 50-50 split | 70-30 split
+--- | --- | ---
+n = 1 | 0.925 | 0.96
+n = 3 | 0.825 | 0.93
+n = 5 | 0.8   | 0.90
+n = 7 | 0.75  | 0.84
+
+Accuracy improves for 70-30 split for all n values.
+
+<style>
+  img{
+    background-color: #fff;
+  }
+</style>

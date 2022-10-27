@@ -152,8 +152,9 @@ n = 7 | 0.75  | 0.84
 
 Accuracy improves for 70-30 split for all n values.
 
-# faces Vs Non faces
-we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step 
+## faces Vs Non faces
+
+we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step
 
 steps:
 
@@ -173,6 +174,7 @@ iii)
 ![Accuracy plot for nonfaces](img/pca_faces_accuracy.png)
 
 iv)accuracy increases with incrase number of non face images
+
 ## LDA
 
 [![colab-badge]][colab-lda]
@@ -365,8 +367,10 @@ n = 5 | 0.65  | **0.70**
 n = 7 | 0.60  | 0.63
 
 Accuracy improves *slightly* for 70-30 split for some n values.
-# faces Vs Non faces
-we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step 
+
+## faces Vs Non faces
+
+we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step
 
 steps:
 
@@ -395,7 +399,7 @@ iv)accuracy decreases with incrase number of non face images
 [acc-plot-70]: img/pca-b-n=1.png
 [max-acc-70]: img/pca-b-max.png
 [acc-n-lda]: img/lda.png
-[acc-nonface]:img/pca_nonface_accuracy.png
+
 [acc-nonfacel]:img/Lda.png
 [ds]: https://www.kaggle.com/kasikrit/att-database-of-faces
 

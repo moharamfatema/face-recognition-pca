@@ -163,6 +163,7 @@ questions:
 iii)
 
 ![Accuracy plot for nonfaces][acc-nonface]
+
 iv)accuracy increases with incrase number of non face images
 ## LDA
 
@@ -367,6 +368,7 @@ questions:
 iii)
 
 ![Accuracy plot for nonfaces][acc-nonfacel]
+
 iv)accuracy decreases with incrase number of non face images
 
 ---

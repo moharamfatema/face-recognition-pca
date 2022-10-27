@@ -162,7 +162,9 @@ steps:
 2-we loaded the 2 datasets in them and labeled them
 
 3- we repeated the same code for pca again for each data array
+
 questions:
+
 7)a)
 i)
 
@@ -373,7 +375,9 @@ steps:
 2-we loaded the 2 datasets in them and labeled them
 
 3- we repeated the same code for lda again for each data array
+
 questions:
+
 7)a)
 i)
 

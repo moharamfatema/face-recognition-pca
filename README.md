@@ -162,7 +162,7 @@ questions:
 7)a)i)
 iii)
 
-![Accuracy plot for nonfaces][acc-nonface]
+![Accuracy plot for nonfaces](img/pca_faces_accuracy.png)
 
 iv)accuracy increases with incrase number of non face images
 ## LDA

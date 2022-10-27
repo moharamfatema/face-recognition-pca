@@ -154,12 +154,18 @@ Accuracy improves for 70-30 split for all n values.
 
 # faces Vs Non faces
 we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step 
+
 steps:
+
 1-we added new arrays with diff size(500,600,700,800)
+
 2-we loaded the 2 datasets in them and labeled them
+
 3- we repeated the same code for pca again for each data array
 questions:
-7)a)i)
+7)a)
+i)
+
 iii)
 
 ![Accuracy plot for nonfaces](img/pca_faces_accuracy.png)
@@ -359,12 +365,18 @@ n = 7 | 0.60  | 0.63
 Accuracy improves *slightly* for 70-30 split for some n values.
 # faces Vs Non faces
 we used datset of flowers with size 834 images we started from 400 to 800 with 100 image as step 
+
 steps:
+
 1-we added new arrays with diff size(500,600,700,800)
+
 2-we loaded the 2 datasets in them and labeled them
+
 3- we repeated the same code for lda again for each data array
 questions:
-7)a)i)
+7)a)
+i)
+
 iii)
 
 ![Accuracy plot for nonfaces][acc-nonfacel]
